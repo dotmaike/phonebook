@@ -1,29 +1,12 @@
-import React, {Component} from 'react';
-import {render} from 'react-dom';
-import axios from 'axios';
+import TopBar from './../TopBar';
+import Container from './../Container/Container';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            contacts: []
-        }
-    }
-    componentDidMount() {
-        // axios.get('https://phonebook-45c68.firebaseio.com/data.json')
-        //     .then(res => {
-        //         const contacts = res.data
-        //     });
-    }
-    _update(e) {
-        this.setState({txt: e.target.value})
-    }
-    render() {
-        return (
-            <main className="row">
-            </main>
-        );
-    }
-}
+const App = () => (
+    <div>
+        <TopBar/>
+        <br/>
+        <Container/>
+    </div>
+);
 
 export default App;

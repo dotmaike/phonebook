@@ -42,7 +42,6 @@ var config = {
         }]
     },
     plugins: [
-        new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
         new HtmlWebpackPlugin({
             title: 'Phonebook',
@@ -58,7 +57,7 @@ var config = {
                 comments: false
             }
         }),
-        new ExtractTextPlugin('[name].css'),
+        new ExtractTextPlugin('[name].min.css'),
         new BrowserSyncPlugin({
             proxy: 'localhost:8080'
         }, {

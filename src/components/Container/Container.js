@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import FB from './../../firebase';
+import ContactList from './components/ContactList/ContactList';
 
 class Container extends Component {
     constructor() {
@@ -63,17 +64,7 @@ class Container extends Component {
                 <div className="row">
                     <div className="medium-6 columns">
                         <h3>Contacts</h3>
-                        {contacts.map(contact => (
-                            <div key={contact.id} className="media-object stack-for-small">
-                                <div className="media-object-section">
-                                    <img className="thumbnail" src={contact.profile_picture}/>
-                                </div>
-                                <div className="media-object-section">
-                                    <h5>Name: {contact.username}</h5>
-                                    <h5>Phone: {contact.phone_number}</h5>
-                                </div>
-                            </div>
-                        ))}
+                        {contacts.map(contact => (<ContactList key={contact.id} contact={contact}/>))}
                     </div>
                     <div className="medium-6 large-5 columns">
                         <h3>Add Contact</h3>

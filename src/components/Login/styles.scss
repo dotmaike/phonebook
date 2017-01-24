@@ -1,0 +1,25 @@
+$medium-gray: #cacaca;
+$global-padding: 1rem;
+$global-radius: 3px;
+
+$form-border-color: $medium-gray;
+$form-padding: $global-padding;
+$form-radius: $global-radius;
+
+.login-centered {
+    align-items: center;
+    display: flex;
+    height: $global-padding*40;
+}
+
+.log-in-form {
+    border: 1px solid $form-border-color;
+    border-radius: $form-radius;
+    padding: $form-padding !important;
+
+    img {
+        display: block;
+        margin: 0 auto;
+        max-width: 50%;
+    }
+}

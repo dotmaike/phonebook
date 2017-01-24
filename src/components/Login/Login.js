@@ -1,25 +1,28 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
-import {Router, Link} from 'react-router';
+import {Router, Link, withRouter} from 'react-router';
 import style from './styles.scss';
 
 import * as firebase from 'firebase';
 
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.provider = new firebase.auth.GoogleAuthProvider();
         this._logIn = this._logIn.bind(this);
         this._logOut = this._logOut.bind(this);
     }
 
     _logIn() {
+        const {router} = this.props;
         firebase.auth().signInWithPopup(this.provider).then(function(result) {
             const token = result.credential.accessToken,
                 user = result.user;
-            localStorage.token = token
+            localStorage.token = token;
+            router.replace('/home');
+            console.log(result);
         }).catch(function(error) {
-            let errorCode = error.code,
+            const errorCode = error.code,
                 errorMessage = error.message,
                 email = error.email,
                 credential = error.credential;
@@ -56,4 +59,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

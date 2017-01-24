@@ -42,7 +42,6 @@ var config = {
         }]
     },
     plugins: [
-        new webpack.optimize.DedupePlugin(),
         new HtmlWebpackPlugin({
             title: 'Phonebook',
             template: PATHS.src + '/index.ejs',

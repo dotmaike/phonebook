@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
-import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router';
+import {Router, Route, Link, hashHistory, IndexRoute} from 'react-router';
 import Main from './../Main/Main';
 import Login from './../Login/Login';
 import Home from './../Home/Home';
@@ -22,10 +22,10 @@ class App extends Component {
 
     render() {
         return (
-            <Router history={browserHistory}>
+            <Router history={hashHistory}>
                 <Route path="/" component={Main}>
                     <IndexRoute component={Login}/>
-                    <Route path="home" component={Home} onEnter={requireAuth}/>
+                    <Route path="home" component={Home} onEnter={requireAuth} />
                 </Route>
             </Router>
         );

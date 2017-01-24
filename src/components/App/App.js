@@ -15,7 +15,6 @@ const requireAuth = (nextState, replaceState) => {
 class App extends Component {
     constructor() {
         super();
-
         this.state = {
             loggedIn: Auth.loggedIn()
         }

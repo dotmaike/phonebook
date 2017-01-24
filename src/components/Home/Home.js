@@ -12,7 +12,6 @@ class Home extends Component {
             contacts: []
         }
         this.rootRef = db.ref().child('data');
-        this.bindAsObject(this.rootRef, 'contacts');
         this._addContact = this._addContact.bind(this);
         this._parseObject = this._parseObject.bind(this);
     }

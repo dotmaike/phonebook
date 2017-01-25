@@ -34,3 +34,12 @@
 a, li {
     outline: 0;
 }
+.thumbnail {
+    border-radius: 50%!important;
+    margin: 7px;
+
+    img {
+        border-radius: 50%;
+        width: 45px;
+    }
+}

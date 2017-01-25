@@ -2,23 +2,22 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import {Router, Link, withRouter} from 'react-router';
 import style from './styles.scss';
-
-import * as firebase from 'firebase';
+import Auth from './Auth';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.provider = new firebase.auth.GoogleAuthProvider();
         this._logIn = this._logIn.bind(this);
-        this._logOut = this._logOut.bind(this);
     }
 
     _logIn() {
         const {router} = this.props;
-        firebase.auth().signInWithPopup(this.provider).then(function(result) {
-            const token = result.credential.accessToken,
-                user = result.user;
-            localStorage.token = token;
+        let promise = Auth.login();
+        promise.then(function(result) {
+            localStorage.token = result.credential.accessToken;
+            localStorage.user = result.user.displayName;
+            localStorage.photo = result.user.photoURL;
+            localStorage.uid = result.user.uid;
             router.replace('/home');
             console.log(result);
         }).catch(function(error) {
@@ -28,11 +27,6 @@ class Login extends Component {
                 credential = error.credential;
             console.log(error);
         });
-    }
-
-    _logOut() {
-        delete localStorage.token;
-        alert('Logout completed');
     }
 
     render() {
@@ -47,9 +41,6 @@ class Login extends Component {
                             <h4 className="text-center">Login with your Google account</h4>
                             <p>
                                 <a onClick={this._logIn} className="button expanded">Log In</a>
-                            </p>
-                            <p>
-                                <a onClick={this._logOut} className="button expanded">Log Out</a>
                             </p>
                         </div>
                     </form>

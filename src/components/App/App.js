@@ -8,7 +8,7 @@ import Auth from './../Login/Auth';
 
 const requireAuth = (nextState, replaceState) => {
     if (!Auth.loggedIn()) {
-        replaceState({ nextPathname: nextState.location.pathname }, '/login')
+        replaceState({ nextPathname: nextState.location.pathname }, '/');
     }
 }
 

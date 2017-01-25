@@ -7,36 +7,26 @@ import ContactList from './components/ContactList/ContactList';
 class Home extends Component {
     constructor() {
         super();
-        const db = FB.database();
         this.state = {
             contacts: []
         }
-        this.rootRef = db.ref().child('data');
         this._addContact = this._addContact.bind(this);
         this._parseObject = this._parseObject.bind(this);
     }
 
-    componentWillMount() {
-        console.log('componentWillMount');
-        this.rootRef.once('value').then((snap) => {
-            this.setState({
-                contacts: this._parseObject(snap.val())
-            });
-        });
-    }
+    componentWillMount() {}
 
     componentDidMount() {
-        console.log('componentDidMount');
-        this.rootRef.on('value', snap => {
+        const db = FB.database();
+        const rootRef = db.ref().child(localStorage.uid);
+        rootRef.on('value', snap => {
             this.setState({
-                contacts: this._parseObject(snap.val())
+                contacts: (snap.val() ? this._parseObject(snap.val()) : [])
             });
         });
     }
 
-    componentWillUnmount() {
-        console.log('componentWillUnmount');
-    }
+    componentWillUnmount() {}
 
     _parseObject(obj) {
         let contacts = [];
@@ -47,15 +37,17 @@ class Home extends Component {
     }
 
     _addContact() {
-        let key = this.rootRef.push().key,
+        const db = FB.database();
+        const rootRef = db.ref().child(localStorage.uid);
+        let key = rootRef.push().key,
             newContact = {
                 id: key,
                 username: this.refs.name.value,
                 email: 'email@email.com',
                 phone_number: this.refs.phonenumber.value,
-                profile_picture: 'https://placehold.it/200x200'
+                profile_picture: 'https://placehold.it/100x100'
             };
-        this.rootRef.push(newContact);
+        rootRef.push(newContact);
     }
 
     render() {
@@ -91,7 +83,7 @@ class Home extends Component {
                                         <input ref="phonenumber" type="tel" name="phonenumber" placeholder="Enter the phone number" required/>
                                     </div>
                                 </div>
-                                <a href="#" onClick={this._addContact} className="button large expanded">Add</a>
+                                <a onClick={this._addContact} className="button large expanded">Add</a>
                             </div>
                         </div>
                     </form>
